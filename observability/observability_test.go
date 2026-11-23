@@ -19,7 +19,7 @@ import (
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/metadata"
 
-	"ros-go-common/httpapi"
+	"github.com/riskibarqy/ros-go-common/httpapi"
 )
 
 func TestPropagation(t *testing.T) {

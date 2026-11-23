@@ -3,7 +3,7 @@ package failure_test
 import (
 	"testing"
 
-	"ros-go-common/failure"
+	"github.com/riskibarqy/ros-go-common/failure"
 )
 
 func TestMappings(t *testing.T) {

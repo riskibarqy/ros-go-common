@@ -11,12 +11,12 @@ configuration values, start a server, or install telemetry providers.
 
 | Rust crate | Go package | Responsibility |
 | --- | --- | --- |
-| `ros-common::config` | `ros-go-common/config` | Pure parsing of caller-supplied configuration |
-| `ros-context` | `ros-go-common/requestcontext` | Validated request IDs and monotonic request timing |
-| `ros-error` | `ros-go-common/failure` | Stable public codes and transport-neutral failures |
-| `ros-http` | `ros-go-common/httpapi` | JSON responses, Problem Details, decoding, pagination, middleware |
-| `ros-grpc` | `ros-go-common/grpcapi` | grpc-go status mapping, metadata, deadlines, HTTP gateway classification |
-| `ros-observability` | `ros-go-common/observability` | W3C propagation, safe completion logs, OTLP traces and logs |
+| `ros-common::config` | `github.com/riskibarqy/ros-go-common/config` | Pure parsing of caller-supplied configuration |
+| `ros-context` | `github.com/riskibarqy/ros-go-common/requestcontext` | Validated request IDs and monotonic request timing |
+| `ros-error` | `github.com/riskibarqy/ros-go-common/failure` | Stable public codes and transport-neutral failures |
+| `ros-http` | `github.com/riskibarqy/ros-go-common/httpapi` | JSON responses, Problem Details, decoding, pagination, middleware |
+| `ros-grpc` | `github.com/riskibarqy/ros-go-common/grpcapi` | grpc-go status mapping, metadata, deadlines, HTTP gateway classification |
+| `ros-observability` | `github.com/riskibarqy/ros-go-common/observability` | W3C propagation, safe completion logs, OTLP traces and logs |
 
 `config`, `failure`, and `requestcontext` use only the standard library. HTTP
 middleware additionally uses `httpsnoop` to preserve the optional capabilities
@@ -24,15 +24,52 @@ of `http.ResponseWriter`, such as `http.Flusher`. The HTTP package does not impo
 gRPC or OpenTelemetry. Those integrations use the official grpc-go and
 OpenTelemetry Go packages and are isolated in their respective packages.
 
-The temporary module path is `ros-go-common`: this checkout has no Git remote.
-Before publishing, change `module` in `go.mod` and internal imports to the actual
-repository URL. Consumers can use a local `replace` during development:
+The module path is `github.com/riskibarqy/ros-go-common`. Once the first tag
+has been published to the public repository, install it in a consumer with:
+
+```sh
+go get github.com/riskibarqy/ros-go-common@latest
+```
+
+For example, import `github.com/riskibarqy/ros-go-common/config`. During local
+development a consumer can override the published module:
 
 ```go
-require ros-go-common v0.0.0
-
-replace ros-go-common => ../ros-go-common
+replace github.com/riskibarqy/ros-go-common => ../ros-go-common
 ```
+
+## Automatic releases
+
+A push to `main` runs formatting checks, race-enabled tests, and `go vet`.
+Only after those checks pass does GitHub Actions publish a new lightweight
+SemVer tag: `v0.1.0` for the first release, then `v0.1.1`, `v0.1.2`, and so on.
+Pull requests and pushes to other branches never publish tags.
+
+The release script refetches remote tags and retries tag-creation conflicts
+without force-pushing. Rerunning an already released commit does nothing. If a
+newer commit has already been released, an older build is skipped instead of
+publishing old code as the latest version. Divergent release history fails
+rather than guessing. The workflow currently supports the unsuffixed Go module's
+`v0` and `v1` release lines; minor and major releases remain explicit decisions.
+Do not merge a breaking change assuming an automatic patch tag makes it safe.
+
+The release job uses the built-in `GITHUB_TOKEN` with `contents: write`; no
+personal access token is needed. Repository/organization policy and tag rules
+must permit that token to create `v*` tags, and GitHub Actions must be enabled.
+Tag creation is sufficient for Go installation; this does not create a GitHub
+Release page. A tag pushed by `GITHUB_TOKEN` does not trigger other tag-push
+workflows, so future release steps should run in this same workflow.
+
+Consumers still opt in to upgrades:
+
+```sh
+go get github.com/riskibarqy/ros-go-common@latest
+go mod tidy
+go test ./...
+```
+
+Commit the consumer's updated `go.mod` and `go.sum`. Publishing a tag does not
+silently change applications already using an older version.
 
 ## Configuration
 

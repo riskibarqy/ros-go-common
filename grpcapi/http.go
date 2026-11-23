@@ -3,8 +3,8 @@ package grpcapi
 import (
 	"google.golang.org/grpc/status"
 
-	"ros-go-common/failure"
-	"ros-go-common/httpapi"
+	"github.com/riskibarqy/ros-go-common/failure"
+	"github.com/riskibarqy/ros-go-common/httpapi"
 )
 
 // ProblemFromGRPCStatus requires an application-owned contextual classifier.

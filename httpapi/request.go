@@ -10,7 +10,7 @@ import (
 	"strings"
 	"unicode/utf8"
 
-	"ros-go-common/failure"
+	"github.com/riskibarqy/ros-go-common/failure"
 )
 
 type RequestErrorKind uint8

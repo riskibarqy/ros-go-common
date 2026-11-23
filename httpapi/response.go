@@ -5,8 +5,8 @@ import (
 	"encoding/json"
 	"net/http"
 
-	"ros-go-common/failure"
-	"ros-go-common/requestcontext"
+	"github.com/riskibarqy/ros-go-common/failure"
+	"github.com/riskibarqy/ros-go-common/requestcontext"
 )
 
 type APIResponse[T any] struct {

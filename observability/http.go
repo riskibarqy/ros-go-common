@@ -11,7 +11,7 @@ import (
 	"go.opentelemetry.io/otel/codes"
 	"go.opentelemetry.io/otel/trace"
 
-	"ros-go-common/requestcontext"
+	"github.com/riskibarqy/ros-go-common/requestcontext"
 )
 
 // RequestCompletionMiddleware logs method, path without query, status, and

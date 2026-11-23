@@ -8,8 +8,8 @@ import (
 	"google.golang.org/grpc/metadata"
 	"google.golang.org/grpc/status"
 
-	"ros-go-common/failure"
-	"ros-go-common/requestcontext"
+	"github.com/riskibarqy/ros-go-common/failure"
+	"github.com/riskibarqy/ros-go-common/requestcontext"
 )
 
 const RequestIDMetadataKey = "x-request-id"

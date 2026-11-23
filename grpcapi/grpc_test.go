@@ -14,9 +14,9 @@ import (
 	"google.golang.org/grpc/status"
 	"google.golang.org/grpc/test/bufconn"
 
-	"ros-go-common/failure"
-	"ros-go-common/grpcapi"
-	"ros-go-common/requestcontext"
+	"github.com/riskibarqy/ros-go-common/failure"
+	"github.com/riskibarqy/ros-go-common/grpcapi"
+	"github.com/riskibarqy/ros-go-common/requestcontext"
 )
 
 func TestMappings(t *testing.T) {

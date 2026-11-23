@@ -9,8 +9,8 @@ import (
 
 	"github.com/felixge/httpsnoop"
 
-	"ros-go-common/failure"
-	"ros-go-common/requestcontext"
+	"github.com/riskibarqy/ros-go-common/failure"
+	"github.com/riskibarqy/ros-go-common/requestcontext"
 )
 
 // RequestIDMiddleware always replaces an untrusted caller-supplied ID.

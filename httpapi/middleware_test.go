@@ -11,8 +11,8 @@ import (
 	"testing"
 	"time"
 
-	"ros-go-common/httpapi"
-	"ros-go-common/requestcontext"
+	"github.com/riskibarqy/ros-go-common/httpapi"
+	"github.com/riskibarqy/ros-go-common/requestcontext"
 )
 
 func TestRequestIDIngress(t *testing.T) {

@@ -1,4 +1,4 @@
-module ros-go-common
+module github.com/riskibarqy/ros-go-common
 
 go 1.25.0
 

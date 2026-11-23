@@ -7,7 +7,7 @@ import (
 	"testing"
 	"time"
 
-	"ros-go-common/config"
+	"github.com/riskibarqy/ros-go-common/config"
 )
 
 func TestStrings(t *testing.T) {
